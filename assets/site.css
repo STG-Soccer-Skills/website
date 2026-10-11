@@ -311,3 +311,14 @@ table.data .btn{font-size:14px;padding:7px 12px}
 .wp-rt p,.wp-rt-sm{font-size:clamp(16px,1.4vw,19px)}
 .wp-rt-sm p{margin:0}
 .wp-text img{max-width:100%;height:auto;max-height:220px;width:auto;display:block;margin:10px auto}
+/* layout fixes for converted pages */
+.wp-col .actions{display:flex;gap:12px;flex-wrap:wrap}
+.wp-col:has(.wp-text [style*="text-align: center"]) .actions,.wp-col:has(.wp-text [style*="text-align:center"]) .actions{justify-content:center}
+.wp-col:has(.wp-text [style*="text-align: center"]) .faq,.wp-col:has(.wp-text [style*="text-align:center"]) .faq{margin-left:auto;margin-right:auto}
+.faq{width:100%;margin-top:24px}
+.wp-dark .wp-text [style*="color"]:not([style*="#cc"]):not([style*="#e"]):not([style*="#f"]){color:rgba(255,255,255,.85)!important}
+.wp-dark .wp-text h1[style*="color"],.wp-dark .wp-text h2[style*="color"],.wp-dark .wp-text h3[style*="color"],.wp-dark .wp-text h4[style*="color"]{color:#fff!important}
+.wp-text>p:empty{display:none}
+.wp-col>.wp-cols+.wp-cols{margin-top:28px}
+.wp-dark+.wp-dark{padding-top:0}
+.wp-text h2+p,.wp-text h1+p{margin-top:10px}
