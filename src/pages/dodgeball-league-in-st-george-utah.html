@@ -1,19 +1,388 @@
-<!--title: Dodgeball League in St. George | STG Soccer Skills, St. George, Utah-->
-<!--desc: Dodgeball League in St. George at STG Soccer Skills, St. George's indoor soccer facility at 3087 S River Rd. Call or text 844-608-1116.-->
-<!--stub: true-->
-<section class="page-hero">
-  <div class="wrap">
-    <div class="crumbs"><a href="/">Home</a> / Leagues</div>
-    <div class="eyebrow">Leagues</div>
-    <h1>Dodgeball League in St. George</h1>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="notice">
-      <h2>We're updating this page</h2>
-      <p>We've moved to a new website and this page is being rebuilt. For the latest details, call or text <a href="tel:844-608-1116">844-608-1116</a> or email <a href="mailto:book@stgsoccerskills.com">book@stgsoccerskills.com</a>.</p>
-      <div class="actions"><a class="btn btn-ghost-navy" href="tel:844-608-1116">Call or Text 844-608-1116</a><a class="btn btn-navy" href="/schedule/">Field Schedule</a></div>
+<!--title: Dodgeball league in St. George, Utah | STG Soccer Skills, St. George, Utah-->
+<!--desc: -->
+<p><div class="wp-raw-row"><div class="wp-col" style="--w:100%"><div class="wp-raw"><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STG Dodgeball — Fall Season</title>
+</head>
+<body style="margin:0;background:#0E1B33;">
+
+<!-- ============================================================= -->
+<!-- PASTE EVERYTHING FROM HERE ...                                 -->
+<!-- Drop this whole block into a WPBakery "Raw HTML" element.      -->
+<!-- Scoped under .stg-db + full-bleed, so it spans full width      -->
+<!-- and won't bleed into the rest of the site.                     -->
+<!-- Registration buttons are wired to your GHL form.                -->
+<!-- CONFIRM: night (Thursdays), roster (12).                       -->
+<!-- ============================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+.stg-db{
+  --navy:#1A3A6B;
+  --navy-deep:#0E1B33;
+  --red:#E8192C;
+  --blue:#4BB8E8;
+  --paper:#F5F7FA;
+  --ink:#0E1B33;
+  --line:rgba(255,255,255,.14);
+  font-family:"Barlow",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--paper);
+  background:var(--navy-deep);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  /* full-bleed: break out of the theme's centered container */
+  width:100vw;
+  max-width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  overflow-x:hidden;
+}
+.stg-db *{box-sizing:border-box;}
+.stg-db h1,.stg-db h2,.stg-db h3,.stg-db .disp{
+  font-family:"Barlow Condensed",Impact,sans-serif;
+  text-transform:uppercase;
+  line-height:.94;
+  margin:0;
+  letter-spacing:.005em;
+  color:#fff; /* explicit so the theme's heading color can't override it */
+}
+.stg-db p{margin:0;}
+.stg-db a{color:inherit;text-decoration:none;}
+.stg-db .wrap{max-width:1280px;margin:0 auto;padding:0 24px;}
+.stg-db .eyebrow{
+  font-family:"Barlow Condensed",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-weight:700;
+  font-size:14px;
+  color:var(--blue);
+}
+
+/* ---- BUTTON ---- */
+.stg-db .btn{
+  display:inline-flex;align-items:center;gap:.55em;
+  font-family:"Barlow Condensed",sans-serif;
+  text-transform:uppercase;font-weight:800;letter-spacing:.04em;
+  font-size:20px;
+  background:var(--red);color:#fff;
+  padding:16px 30px;border-radius:6px;
+  border:2px solid var(--red);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  box-shadow:0 10px 26px -10px rgba(232,25,44,.7);
+}
+.stg-db .btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px -10px rgba(232,25,44,.75);}
+.stg-db .btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px;}
+.stg-db .btn--ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.55);box-shadow:none;}
+.stg-db .btn--ghost:hover{background:#fff;color:var(--navy);border-color:#fff;}
+
+/* ---- HERO (image background + navy scrim) ---- */
+.stg-db .hero{
+  position:relative;
+  background-image:
+    linear-gradient(135deg, rgba(26,58,107,.82) 0%, rgba(14,27,51,.90) 72%),
+    url("/assets/uploads/2026/05/Untitled-presentation-20.png");
+  background-size:cover, cover;
+  background-position:center, center;
+  background-repeat:no-repeat, no-repeat;
+  padding:110px 0 120px;
+  min-height:540px;
+  overflow:hidden;
+}
+.stg-db .hero .wrap{position:relative;z-index:2;}
+.stg-db .hero-copy{max-width:660px;}
+.stg-db .hero h1{
+  font-weight:800;
+  font-size:clamp(52px,8vw,104px);
+  margin:14px 0 0;
+}
+.stg-db .hero h1 .hl{color:var(--red);}
+.stg-db .hero-sub{
+  font-size:clamp(17px,2.2vw,21px);
+  color:rgba(255,255,255,.88);
+  max-width:44ch;margin:22px 0 30px;
+}
+.stg-db .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.stg-db .price-inline{display:inline-flex;align-items:baseline;gap:9px;background:rgba(14,27,51,.5);border:1px solid var(--line);border-radius:999px;padding:9px 18px;margin:22px 0 26px;}
+.stg-db .price-inline b{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:26px;color:#fff;line-height:1;}
+.stg-db .price-inline em{font-style:normal;color:var(--blue);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12.5px;font-family:"Barlow Condensed",sans-serif;}
+.stg-db .startline{margin-top:6px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#fff;font-size:19px;}
+.stg-db .startline b{color:var(--blue);}
+
+/* ---- MARQUEE ---- */
+.stg-db .ticker{
+  background:var(--red);color:#fff;
+  border-top:3px solid rgba(255,255,255,.25);
+  border-bottom:3px solid rgba(255,255,255,.25);
+  overflow:hidden;white-space:nowrap;padding:14px 0;
+}
+.stg-db .ticker-track{display:inline-block;will-change:transform;animation:stgdbticker 26s linear infinite;}
+.stg-db .ticker span{
+  font-family:"Barlow Condensed",sans-serif;font-weight:800;text-transform:uppercase;
+  letter-spacing:.05em;font-size:22px;padding:0 26px;
+}
+.stg-db .ticker .dot{color:var(--navy-deep);}
+@keyframes stgdbticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media (prefers-reduced-motion:reduce){
+  .stg-db .ticker-track{animation:none;}
+}
+
+/* ---- SECTION SHELL ---- */
+.stg-db .sec{padding:82px 0;}
+.stg-db .sec--navy{background:var(--navy);}
+.stg-db .sec-head{max-width:640px;margin-bottom:44px;}
+.stg-db .sec-head h2{font-weight:800;font-size:clamp(34px,5vw,58px);margin-top:10px;}
+
+/* ---- STEPS ---- */
+.stg-db .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.stg-db .step{
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:26px 22px;
+}
+.stg-db .step .n{
+  font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:20px;
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--red);color:#fff;margin-bottom:16px;
+}
+.stg-db .step h3{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.stg-db .step p{font-size:15.5px;color:rgba(255,255,255,.8);}
+
+/* ---- DETAILS GRID ---- */
+.stg-db .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.stg-db .fact{background:var(--navy);padding:30px 26px;}
+.stg-db .fact .k{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:13px;color:var(--blue);}
+.stg-db .fact .v{font-family:"Barlow Condensed",sans-serif;font-weight:800;text-transform:uppercase;font-size:30px;margin-top:6px;color:#fff;line-height:1;}
+.stg-db .fact .v small{display:block;font-size:14px;color:rgba(255,255,255,.6);font-weight:600;letter-spacing:0;text-transform:none;margin-top:6px;font-family:"Barlow",sans-serif;}
+
+/* ---- PRICING + FINAL split ---- */
+.stg-db .split{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+.stg-db .card{border-radius:16px;padding:38px 34px;}
+.stg-db .card--price{background:linear-gradient(160deg,var(--navy),var(--navy-deep));border:1px solid var(--line);}
+.stg-db .card--final{background:#fff;color:var(--ink);border:1px solid #E4E9F0;}
+.stg-db .card h3{font-size:30px;font-weight:800;color:#fff;}
+.stg-db .card--final h3{color:var(--navy);}
+.stg-db .bigprice{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:74px;line-height:1;color:#fff;margin:6px 0 2px;}
+.stg-db .bigprice sup{font-size:30px;top:-1.3em;color:var(--blue);}
+.stg-db .bigprice .per{font-size:20px;color:var(--blue);}
+.stg-db .inc{list-style:none;padding:0;margin:22px 0 28px;display:grid;gap:12px;}
+.stg-db .inc li{display:flex;gap:12px;font-size:16px;color:rgba(255,255,255,.9);}
+.stg-db .inc li::before{content:"";flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--red);display:inline-block;margin-top:2px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-size:14px;background-repeat:no-repeat;background-position:center;}
+.stg-db .fineprint{font-size:13.5px;color:rgba(255,255,255,.62);margin-top:14px;}
+.stg-db .final-badge{display:inline-block;background:var(--blue);color:var(--navy-deep);font-family:"Barlow Condensed",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:6px 14px;border-radius:999px;font-size:14px;margin-bottom:16px;}
+.stg-db .card--final p{color:#4a5568;font-size:16px;margin-bottom:14px;}
+.stg-db .card--final ul{padding-left:0;list-style:none;display:grid;gap:10px;margin:0;}
+.stg-db .card--final li{display:flex;gap:10px;font-size:15.5px;color:var(--navy);font-weight:500;}
+.stg-db .card--final li::before{content:"★";color:var(--red);}
+
+/* ---- FAQ ---- */
+.stg-db .faq{display:grid;gap:14px;max-width:860px;}
+.stg-db details{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:4px 22px;}
+.stg-db summary{cursor:pointer;list-style:none;padding:20px 0;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;color:#fff;display:flex;justify-content:space-between;gap:16px;align-items:center;}
+.stg-db summary::-webkit-details-marker{display:none;}
+.stg-db summary::after{content:"+";color:var(--red);font-size:30px;font-weight:800;line-height:1;transition:transform .2s;}
+.stg-db details[open] summary::after{transform:rotate(45deg);}
+.stg-db details p{padding:0 0 22px;color:rgba(255,255,255,.82);font-size:16px;}
+
+/* ---- FINAL CTA ---- */
+.stg-db .cta{background:var(--red);text-align:center;padding:78px 0;position:relative;overflow:hidden;}
+.stg-db .cta::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 60px,rgba(255,255,255,.06) 60px 62px);}
+.stg-db .cta .wrap{position:relative;}
+.stg-db .cta h2{font-weight:800;font-size:clamp(40px,6.5vw,74px);color:#fff;}
+.stg-db .cta p{color:rgba(255,255,255,.92);font-size:19px;margin:16px auto 30px;max-width:52ch;}
+.stg-db .cta .btn{background:#fff;color:var(--red);border-color:#fff;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);}
+.stg-db .cta .btn:hover{background:var(--navy-deep);color:#fff;border-color:var(--navy-deep);}
+
+/* ---- responsive ---- */
+@media (max-width:900px){
+  .stg-db .steps{grid-template-columns:1fr 1fr;}
+  .stg-db .facts{grid-template-columns:1fr 1fr;}
+  .stg-db .split{grid-template-columns:1fr;}
+}
+@media (max-width:560px){
+  .stg-db .sec{padding:60px 0;}
+  .stg-db .hero{padding:80px 0 84px;min-height:0;}
+  .stg-db .steps,.stg-db .facts{grid-template-columns:1fr;}
+  .stg-db .btn{font-size:18px;padding:15px 24px;}
+}
+</style>
+
+<div class="stg-db">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">St. George, Utah · Indoor 8-on-8 Dodgeball</span>
+        <h1>Eight weeks. One <span class="hl">champion.</span></h1>
+        <p class="hero-sub">A full competitive dodgeball season — eight weeks of games, then a championship final. Grab your crew and play for the title.</p>
+        <div class="price-inline"><b>$799</b><em>per team / full season</em></div>
+        <div class="startline">Season starts <b>Thu, Sept 10</b></div>
+        <div class="hero-cta" style="margin-top:26px;">
+          <a class="btn" href="https://api.leadconnectorhq.com/widget/form/nGW958XGse3XGxt6877H">Register Your Team</a>
+          <a class="btn btn--ghost" href="#how">How it works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Season Starts Sept 10</span><span class="dot">●</span>
+      <span>8 Weeks + The Final</span><span class="dot">●</span>
+      <span>$799 / Team</span><span class="dot">●</span>
+      <span>8-on-8 Dodgeball</span><span class="dot">●</span>
+      <span>Register Now</span><span class="dot">●</span>
+      <span>Season Starts Sept 10</span><span class="dot">●</span>
+      <span>8 Weeks + The Final</span><span class="dot">●</span>
+      <span>$799 / Team</span><span class="dot">●</span>
+      <span>8-on-8 Dodgeball</span><span class="dot">●</span>
+      <span>Register Now</span><span class="dot">●</span>
     </div>
   </div>
-</section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec sec--navy" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">How the season works</span>
+        <h2>Register once. Play for the title.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>Register your team</h3>
+          <p>Pay the one-time season fee and lock in your roster of up to 12 players.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>Get your schedule</h3>
+          <p>We set your weekly Thursday game times for the full eight-week season.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>Play 8 weeks</h3>
+          <p>Battle through the regular season and climb the standings game by game.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h3>Reach the final</h3>
+          <p>The season ends with a championship final. Win it and take the trophy home.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAGUE DETAILS -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">League details</span>
+        <h2>Everything you need to know</h2>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">Format</div><div class="v">8v8<small>Indoor, competitive</small></div></div>
+        <div class="fact"><div class="k">Roster</div><div class="v">12 max<small>Subs welcome</small></div></div>
+        <div class="fact"><div class="k">Game night</div><div class="v">Thursdays<small>Weekly, evenings</small></div></div>
+        <div class="fact"><div class="k">Season</div><div class="v">8 wks<small>Plus the championship final</small></div></div>
+        <div class="fact"><div class="k">Starts</div><div class="v">Sept 10<small>Thursday kickoff</small></div></div>
+        <div class="fact"><div class="k">Location</div><div class="v">STG, UT<small>3087 S River Rd</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING + FINAL -->
+  <section class="sec sec--navy">
+    <div class="wrap">
+      <div class="split">
+        <div class="card card--price">
+          <h3>Full-season team entry</h3>
+          <div class="bigprice"><sup>$</sup>799<span class="per">/team</span></div>
+          <ul class="inc">
+            <li>8 weeks of regular-season games</li>
+            <li>Championship final for the title</li>
+            <li>Your own reserved weekly game slot</li>
+            <li>Refereed 8-on-8 games and league balls provided</li>
+            <li>Live standings all season long</li>
+            <li>Up to 12 rostered players, subs allowed</li>
+          </ul>
+          <a class="btn" href="https://api.leadconnectorhq.com/widget/form/nGW958XGse3XGxt6877H">Register Your Team</a>
+          <p class="fineprint">One-time fee for the full season — not a subscription. Spots are limited; registration closes once the league fills.</p>
+        </div>
+        <div class="card card--final">
+          <span class="final-badge">Week 9</span>
+          <h3>The Final</h3>
+          <p>Eight weeks of games decide the standings — then it all comes down to one night. The top teams meet in a championship final to settle who takes home the title.</p>
+          <ul>
+            <li>Playoff final after the 8-week regular season</li>
+            <li>Champion's trophy and season bragging rights</li>
+            <li>Every regular-season game shapes your seeding</li>
+            <li>One night, one title, last team standing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Common questions</span>
+        <h2>Season, explained</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>When does the season start?</summary>
+          <p>Thursday, September 10. From there you'll play eight weeks of regular-season games, capped off by a championship final.</p>
+        </details>
+        <details>
+          <summary>How much is it, and how is it billed?</summary>
+          <p>$799 per team, paid one time for the whole season. It's not a subscription — one entry fee covers all eight weeks plus the final.</p>
+        </details>
+        <details>
+          <summary>How many games do we get?</summary>
+          <p>Eight weeks of regular-season matchups, then the final for teams that qualify. Every game counts toward your standing and seeding.</p>
+        </details>
+        <details>
+          <summary>What if we're short players one week?</summary>
+          <p>Subs are welcome and your roster holds up to 12, so build in depth. As long as you can field eight, you play.</p>
+        </details>
+        <details>
+          <summary>What skill level is this for?</summary>
+          <p>Competitive but welcoming — if you can throw, you can play. Flag your level when you register so we can keep matchups fair.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <h2>The season starts Sept 10.</h2>
+      <p>Spots are limited by our Thursday capacity. Lock your team in before the league fills.</p>
+      <a class="btn" href="https://api.leadconnectorhq.com/widget/form/nGW958XGse3XGxt6877H">Register Your Team — $799</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============================================================= -->
+<!-- ... TO HERE. That's the whole pasteable block.                -->
+<!-- ============================================================= -->
+
+</body>
+</html></div></div></div><section class="wp-row wp-dark"><div class="wrap wp-cols"><div class="wp-col" style="--w:100%"><div class="wp-text"></p>
+<h3><span style="color: #ffffff;">Contact</span></h3>
+<p><span style="color: #ffffff;">3087 S River Rd<br />
+St. George, UT 84790</span><br />
+<span style="color: #ffffff;"><a style="color: #ffffff;" href="tel:844-608-1116">844-608-1116</a></span><br />
+<span style="color: #ffffff;"><a style="color: #ffffff;" href="mailto:book@stgsoccerskills.com">book@stgsoccerskills.com</a></span><br />
+<span style="color: #ffffff;"><a style="color: #ffffff;" href="/" target="_blank" rel="noopener">stgsoccerskills.com</a></span></div></div></div></section></p>
+

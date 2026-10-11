@@ -1,19 +1,501 @@
 <!--title: Men's Tier 2 Schedule | STG Soccer Skills, St. George, Utah-->
-<!--desc: Men's Tier 2 Schedule at STG Soccer Skills, St. George's indoor soccer facility at 3087 S River Rd. Call or text 844-608-1116.-->
-<!--stub: true-->
-<section class="page-hero">
-  <div class="wrap">
-    <div class="crumbs"><a href="/">Home</a> / Leagues</div>
-    <div class="eyebrow">Adult League Schedule</div>
-    <h1>Men's Tier 2 Schedule</h1>
-  </div>
-</section>
-<section>
-  <div class="wrap">
-    <div class="notice">
-      <h2>We're updating this page</h2>
-      <p>We've moved to a new website and this page is being rebuilt. For the latest details, call or text <a href="tel:844-608-1116">844-608-1116</a> or email <a href="mailto:book@stgsoccerskills.com">book@stgsoccerskills.com</a>.</p>
-      <div class="actions"><a class="btn btn-ghost-navy" href="tel:844-608-1116">Call or Text 844-608-1116</a><a class="btn btn-navy" href="/schedule/">Field Schedule</a></div>
-    </div>
-  </div>
-</section>
+<!--desc: -->
+<section class="page-hero"><div class="wrap"><div class="crumbs"><a href="/">Home</a></div><h1>Men's Tier 2 Schedule</h1></div></section><p><div class="wp-raw-row"><div class="wp-col" style="--w:100%"><div class="wp-raw"><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Men's Tier 2 World Cup — Live Schedule</title>
+
+<style>
+    .schedule-container {
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        max-width: 1100px;
+        margin: 20px auto;
+        color: #333;
+    }
+
+    .schedule-title {
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .filter-box {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 25px;
+        border: 1px solid #e0e0e0;
+        background-color: #fcfcfc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .week-header {
+        background-color: #00b0da;
+        color: white;
+        padding: 12px 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        margin-top: 30px;
+    }
+
+    .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+
+    .schedule-table th {
+        background-color: #f8f8f8;
+        text-align: left;
+        padding: 12px 10px;
+        font-size: 11px;
+        color: #666;
+        border-bottom: 1px solid #eee;
+        text-transform: uppercase;
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+
+    .schedule-table td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+    }
+
+    .score-cell {
+        background-color: #f9f9f9;
+        width: 60px;
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid #f0f0f0;
+    }
+
+    .team-name {
+        font-weight: 700;
+    }
+
+    .bye-week {
+        color: #999;
+        font-style: italic;
+    }
+
+    .schedule-table tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+
+    /* Header rows should keep the plain header background, not the
+       zebra stripe that the :nth-child rule above would give them. */
+    .schedule-table thead tr,
+    .schedule-table thead tr:nth-child(even) {
+        background-color: transparent;
+    }
+
+    /* "(wear white)" / "(wear black)" notes inside the Home / Away headers */
+    .wear-note {
+        display: inline-block;
+        margin-left: 6px;
+        padding: 2px 7px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .wear-white {
+        background-color: #ffffff;
+        color: #444;
+        border: 1px solid #ccc;
+    }
+
+    .wear-black {
+        background-color: #222222;
+        color: #ffffff;
+        border: 1px solid #222222;
+    }
+
+    .memorial-day-row td {
+        text-align: center;
+        font-weight: bold;
+        color: #777;
+        background-color: #f5f5f5;
+        padding: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Stack the wear note under the team label on small screens */
+    @media (max-width: 600px) {
+        .schedule-table th { padding: 10px 6px; }
+        .wear-note { display: block; margin-left: 0; margin-top: 3px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ===================================================================== -->
+<!--  CONFIG — EDIT THESE VALUES (top of file, as requested)               -->
+<!--  Everything else is generated live from your published Google Sheet.  -->
+<!-- ===================================================================== -->
+<script>
+    /* 1) Your Google Sheet ID — the long string in the sheet URL:
+          https://docs.google.com/spreadsheets/d/THIS_PART_HERE/edit        */
+    var SHEET_ID = "13PGjlXKBaG3AY2Ovz2W7c3PjlGLE-9uTXetzI0srgHQ";
+
+    /* 2) The exact division TAB name to display (case-sensitive).
+          e.g. "Boys 16/17", "Boys 14/15", "Boys 12/13", "Boys 08-11", "Girls 14/15" */
+    var SHEET_TAB = "Men's Tier 2 Schedule";
+
+    /* 3) Title shown at the top of the page.                                */
+    var PAGE_TITLE = "Men's Tier 2 World Cup";
+
+    /* 4) Jersey color reminders shown in the Home / Away column headers.
+          Set either one to "" to hide that note.                            */
+    var HOME_WEAR = "Wear White";
+    var AWAY_WEAR = "Wear Black";
+</script>
+<!-- ===================================================================== -->
+
+<div class="schedule-container">
+
+    <div class="schedule-title" id="scheduleTitle">Boys 16/17 World Cup</div>
+
+    <input type="text" id="teamSearchB1617" class="filter-box"
+        placeholder="Search for your team (e.g. 7 Elite Legends-USA, Brazil - SW, Argentina)...">
+
+    <!-- Live-generated week headers + tables get inserted here -->
+    <div id="scheduleStatus" style="padding:14px 0;color:#777;font-size:14px;">Loading schedule…</div>
+    <div id="scheduleMount"></div>
+
+</div>
+
+<script>
+/* ===================================================================== */
+/*  Live loader — reads one tab via the Google Visualization API (gviz). */
+/*  No API key needed; the sheet just has to be shared/published so       */
+/*  "anyone with the link" can view.                                      */
+/* ===================================================================== */
+
+// Column order in every tab:
+// A:Date B:Week C:Field D:Time E:Home Team F:Home Score G:Away Team H:Away Score I:Home Points J:Away Points
+var COL = { date:0, week:1, field:2, time:3, homeTeam:4, homeScore:5, awayTeam:6, awayScore:7 };
+
+var MONTHS = ["January","February","March","April","May","June",
+              "July","August","September","October","November","December"];
+
+document.getElementById('scheduleTitle').textContent = PAGE_TITLE;
+
+function gvizUrl(id, tab) {
+    return "https://docs.google.com/spreadsheets/d/" + encodeURIComponent(id) +
+           "/gviz/tq?tqx=out:json&sheet=" + encodeURIComponent(tab);
+}
+
+// gviz wraps JSON like: /*O_o*/ google.visualization.Query.setResponse({...});
+function parseGviz(text) {
+    var start = text.indexOf("{");
+    var end = text.lastIndexOf("}");
+    if (start === -1 || end === -1) throw new Error("Unexpected response from Google Sheets.");
+    return JSON.parse(text.substring(start, end + 1));
+}
+
+function pad2(n) { return (n < 10 ? "0" : "") + n; }
+
+// Best-effort plain text for a gviz cell (prefers the formatted value).
+function cellText(cell) {
+    if (!cell) return "";
+    if (cell.f !== undefined && cell.f !== null && cell.f !== "") return String(cell.f).trim();
+    if (cell.v !== undefined && cell.v !== null) return String(cell.v).trim();
+    return "";
+}
+
+// Turn a gviz date cell into a real Date (handles "Date(y,m,d)" and ISO text).
+function parseDate(cell) {
+    if (!cell) return null;
+    var v = cell.v;
+    if (typeof v === "string") {
+        var m = v.match(/^Date\((\d+),(\d+),(\d+)/);              // gviz date object
+        if (m) return new Date(+m[1], +m[2], +m[3]);
+        var iso = v.match(/^(\d{4})-(\d{2})-(\d{2})/);            // "2026-06-22"
+        if (iso) return new Date(+iso[1], +iso[2] - 1, +iso[3]);
+    }
+    var f = cell.f;                                               // fall back to formatted text
+    if (typeof f === "string") {
+        var fiso = f.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (fiso) return new Date(+fiso[1], +fiso[2] - 1, +fiso[3]);
+        var d = new Date(f);
+        if (!isNaN(d.getTime())) return d;
+    }
+    return null;
+}
+
+function isoDate(d) {
+    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+}
+
+function headerDate(d) {
+    return MONTHS[d.getMonth()] + " " + pad2(d.getDate());        // "June 22", "August 03"
+}
+
+// A dated game with a blank/"final" Week column is the Finals week.
+function isFinalsWeek(weekValue) {
+    return !weekValue.trim() || /final/i.test(weekValue);
+}
+
+function weekLabel(weekValue, dateObj, rawDateText) {
+    var name;
+    if (isFinalsWeek(weekValue)) name = "Finals";
+    else if (/^\d+$/.test(weekValue.trim())) name = "Week " + weekValue.trim();
+    else name = weekValue;
+    var datePart = dateObj ? headerDate(dateObj) : (rawDateText || "");
+    return datePart ? name + " – " + datePart : name;
+}
+
+// Sheet stores field as a bare number ("1"); the page shows "Field 1".
+function formatField(text) {
+    return /^\d+$/.test(text) ? "Field " + text : text;
+}
+
+// Sheet time is "5:00:00 PM" (with seconds); the page shows "5:00 PM".
+function formatTime(cell) {
+    if (!cell) return "";
+    if (typeof cell.v === "string") {
+        var m = cell.v.match(/^Date\(\d+,\d+,\d+,(\d+),(\d+)/);   // Date(1899,11,30,h,m,s)
+        if (m) {
+            var h = +m[1], min = +m[2];
+            var ap = h >= 12 ? "PM" : "AM";
+            var h12 = h % 12; if (h12 === 0) h12 = 12;
+            return h12 + ":" + pad2(min) + " " + ap;
+        }
+    }
+    return cellText(cell).replace(/(\d{1,2}:\d{2}):\d{2}(\s*[AaPp][Mm])/, "$1$2");
+}
+
+function rowsToGames(rows) {
+    var games = [];
+    rows.forEach(function (row) {
+        var c = row.c || [];
+        var get = function (i) { return cellText(c[i]); };
+
+        var dateText = get(COL.date);
+        var homeTeam = get(COL.homeTeam);
+        var awayTeam = get(COL.awayTeam);
+
+        if (dateText.toLowerCase() === "date") return;            // stray header row
+        if (!homeTeam && !awayTeam) return;                       // not a real game (no teams)
+
+        var dateObj = parseDate(c[COL.date]);
+
+        games.push({
+            dateObj:   dateObj,
+            dateText:  dateObj ? isoDate(dateObj) : dateText,     // match the "2026-06-22" look
+            week:      get(COL.week),
+            field:     formatField(get(COL.field)),
+            time:      formatTime(c[COL.time]),
+            homeTeam:  homeTeam,
+            homeScore: get(COL.homeScore),
+            awayTeam:  awayTeam,
+            awayScore: get(COL.awayScore)
+        });
+    });
+    return games;
+}
+
+// Group by the Week column, preserving the order weeks first appear.
+function groupByWeek(games) {
+    var order = [], map = {};
+    games.forEach(function (g) {
+        var key = g.week;                                         // keep blank week as-is (Finals signal)
+        if (!map[key]) { map[key] = []; order.push(key); }
+        map[key].push(g);
+    });
+    return order.map(function (key) {
+        return { week: key, games: map[key] };
+    });
+}
+
+function buildCell(text, className) {
+    var td = document.createElement("td");
+    if (className) td.className = className;
+    td.textContent = text || "";
+    return td;
+}
+
+// One header cell. `wearText` adds the jersey-color pill (e.g. "Wear White").
+function buildHeaderCell(label, className, wearText, wearClass) {
+    var th = document.createElement("th");
+    if (className) th.className = className;
+    th.appendChild(document.createTextNode(label));
+    if (wearText) {
+        var note = document.createElement("span");
+        note.className = "wear-note " + wearClass;
+        note.textContent = "(" + wearText + ")";
+        th.appendChild(note);
+    }
+    return th;
+}
+
+// Column headings — same 7 columns, in the same order, as the data rows.
+function buildHead() {
+    var thead = document.createElement("thead");
+    var tr = document.createElement("tr");
+    tr.appendChild(buildHeaderCell("Date", "text-center"));
+    tr.appendChild(buildHeaderCell("Field", "text-center"));
+    tr.appendChild(buildHeaderCell("Time", "text-center"));
+    tr.appendChild(buildHeaderCell("Home", null, HOME_WEAR, "wear-white"));
+    tr.appendChild(buildHeaderCell("Score", "text-center"));
+    tr.appendChild(buildHeaderCell("Away", null, AWAY_WEAR, "wear-black"));
+    tr.appendChild(buildHeaderCell("Score", "text-center"));
+    thead.appendChild(tr);
+    return thead;
+}
+
+function render(games) {
+    var mount = document.getElementById("scheduleMount");
+    mount.innerHTML = "";
+    var groups = groupByWeek(games);
+
+    groups.forEach(function (group) {
+        var isFinals = isFinalsWeek(group.week);
+        var firstWithDate = group.games.find(function (g) { return g.dateObj; });
+        var headerDateObj = firstWithDate ? firstWithDate.dateObj : null;
+        var rawDate = group.games[0] ? group.games[0].dateText : "";
+
+        // Week header bar
+        var header = document.createElement("div");
+        header.className = "week-header";
+        header.textContent = weekLabel(group.week, headerDateObj, rawDate);
+        mount.appendChild(header);
+
+        // Table
+        var table = document.createElement("table");
+        table.className = "schedule-table";
+        table.appendChild(buildHead());                           // Home (wear white) / Away (wear black)
+        var tbody = document.createElement("tbody");
+        tbody.className = "filterable-body";
+
+        group.games.forEach(function (g) {
+            var tr = document.createElement("tr");
+            var teamClass = isFinals ? "team-name" : null;
+
+            // A blank opponent means the other team has a bye.
+            var homeText = g.homeTeam, awayText = g.awayTeam;
+            var homeClass = teamClass, awayClass = teamClass;
+            if (g.homeTeam && !g.awayTeam)      { awayText = "Bye Week"; awayClass = "bye-week"; }
+            else if (!g.homeTeam && g.awayTeam) { homeText = "Bye Week"; homeClass = "bye-week"; }
+
+            tr.appendChild(buildCell(g.dateText, "text-center"));
+            tr.appendChild(buildCell(g.field, "text-center"));
+            tr.appendChild(buildCell(g.time, "text-center"));
+            tr.appendChild(buildCell(homeText, homeClass));
+            tr.appendChild(buildCell(g.homeScore, "score-cell"));
+            tr.appendChild(buildCell(awayText, awayClass));
+            tr.appendChild(buildCell(g.awayScore, "score-cell"));
+
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+        mount.appendChild(table);
+    });
+}
+
+function showStatus(msg) {
+    var s = document.getElementById("scheduleStatus");
+    s.textContent = msg;
+    s.style.display = msg ? "block" : "none";
+}
+
+function loadSchedule() {
+    if (SHEET_ID === "PASTE_YOUR_SHEET_ID_HERE") {
+        showStatus("⚠ Set SHEET_ID at the top of the file to load live games.");
+        return;
+    }
+    fetch(gvizUrl(SHEET_ID, SHEET_TAB))
+        .then(function (r) {
+            if (!r.ok) throw new Error("Could not reach the sheet (HTTP " + r.status + ").");
+            return r.text();
+        })
+        .then(function (text) {
+            var data = parseGviz(text);
+            if (!data.table || !data.table.rows) throw new Error("No data found in tab \"" + SHEET_TAB + "\".");
+            var games = rowsToGames(data.table.rows);
+            if (!games.length) throw new Error("Tab \"" + SHEET_TAB + "\" has no games yet.");
+            showStatus("");
+            render(games);
+        })
+        .catch(function (err) {
+            showStatus("Couldn't load the schedule: " + (err.message || err));
+        });
+}
+
+loadSchedule();
+</script>
+
+<script>
+/* ===================================================================== */
+/*  Team search — your original filter, unchanged. Works on the           */
+/*  live-generated tables because it reads the DOM on every keystroke.    */
+/*  It only touches rows inside .filterable-body, so the new column       */
+/*  header row is never hidden or re-striped by the filter.               */
+/* ===================================================================== */
+    document.getElementById('teamSearchB1617').addEventListener('keyup', function () {
+
+        var filter = this.value.toUpperCase();
+        var containers = document.querySelectorAll('.schedule-table');
+
+        containers.forEach(function (table) {
+
+            var body = table.querySelector('.filterable-body');
+            var rows = body.getElementsByTagName('tr');
+            var hasVisibleRow = false;
+
+            for (var i = 0; i < rows.length; i++) {
+
+                var homeTeam = rows[i].cells[3]
+                    ? rows[i].cells[3].textContent.toUpperCase()
+                    : "";
+
+                var awayTeam = rows[i].cells[5]
+                    ? rows[i].cells[5].textContent.toUpperCase()
+                    : "";
+
+                if (
+                    homeTeam.indexOf(filter) > -1 ||
+                    awayTeam.indexOf(filter) > -1 ||
+                    filter === ""
+                ) {
+                    rows[i].style.display = "";
+                    hasVisibleRow = true;
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+
+            table.style.display = hasVisibleRow ? "" : "none";
+
+            var header = table.previousElementSibling;
+
+            if (header && header.classList.contains('week-header')) {
+                header.style.display = hasVisibleRow ? "" : "none";
+            }
+        });
+    });
+</script>
+
+</body>
+</html></div></div></div><section class="wp-row wp-dark"><div class="wrap wp-cols"><div class="wp-col" style="--w:100%"><div class="wp-text"></p>
+<h3><span style="color: #ffffff;">Contact</span></h3>
+<p><span style="color: #ffffff;">3087 S River Rd<br />
+St. George, UT 84790</span><br />
+<span style="color: #ffffff;"><a style="color: #ffffff;" href="tel:844-608-1116">844-608-1116</a></span><br />
+<span style="color: #ffffff;"><a style="color: #ffffff;" href="mailto:book@stgsoccerskills.com">book@stgsoccerskills.com</a></span><br />
+<span style="color: #ffffff;"><a style="color: #ffffff;" href="/" target="_blank" rel="noopener">stgsoccerskills.com</a></span></div></div></div></section></p>
+
