@@ -8,7 +8,7 @@ The shared header/footer come from src/header.html and src/footer.html.
 index.html is the homepage; every other slug is written to dist/<slug>/index.html
 so the URLs match the old WordPress site.
 """
-import os, re, shutil, glob
+import os, re, shutil, glob, json
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, 'src')
@@ -80,6 +80,32 @@ def build():
         os.makedirs(os.path.dirname(out), exist_ok=True)
         with open(out, 'w', encoding='utf-8') as f:
             f.write(html)
+    # Short links (replaces Pretty Links): src/links.txt, one per line: "slug  https://destination"
+    nlinks = 0
+    links_file = os.path.join(SRC, 'links.txt')
+    if os.path.exists(links_file):
+        for line in read(links_file).splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            slug, dest = line.split(None, 1)
+            slug, dest = slug.strip('/'), dest.strip()
+            esc = dest.replace('&', '&amp;').replace('"', '&quot;')
+            page = ('<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex">'
+                    '<title>Redirecting…</title><meta http-equiv="refresh" content="0; url=%s">'
+                    '<link rel="canonical" href="%s"><script>location.replace(%s)</script>'
+                    '</head><body><p>Redirecting to <a href="%s">%s</a>…</p></body></html>\n'
+                    % (esc, esc, json.dumps(dest), esc, esc))
+            for s in {slug, slug.lower()}:
+                out = os.path.join(DIST, s, 'index.html')
+                if os.path.exists(out):
+                    print('WARNING: short link /%s/ clashes with an existing page; skipped' % s)
+                    continue
+                os.makedirs(os.path.dirname(out), exist_ok=True)
+                with open(out, 'w', encoding='utf-8') as f:
+                    f.write(page)
+            nlinks += 1
+    print('built %d short links' % nlinks)
     with open(os.path.join(DIST, 'sitemap.xml'), 'w') as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
         for u in urls:

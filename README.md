@@ -44,6 +44,15 @@ To swap an existing photo, upload the new one with exactly the same file name an
 3. Copy the top two lines from another page, then add your content. The easiest start is to copy a similar page's whole file and edit it.
 4. To put it in the menu or footer, add a link in `src/header.html` or `src/footer.html`, e.g. `<li><a href="/fall-camp/">Fall Camp</a></li>`.
 
+## Short links (like stgsoccerskills.com/waiver)
+Short links live in `src/links.txt`, one per line: the short name, some spaces, then the address it goes to. For example:
+
+```
+waiver   https://api.leadconnectorhq.com/widget/form/xO22A7mEMlM8k0Ltxwkj
+```
+
+To add or change one, edit that file with the pencil icon and commit. Don't reuse the name of an existing page. Short links used in GoHighLevel automations, such as /waiver, should keep the same name; change only the address.
+
 ## Remove a page
 Open the file in `src/pages/`, click the **⋯** menu → **Delete file**, and commit. Also remove any menu or footer link to it.
 

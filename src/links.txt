@@ -1,0 +1,51 @@
+# Short links (these replace Pretty Links from the old WordPress site).
+# One per line: the short name, then the address it should go to.
+# Example: "waiver  https://..." makes stgsoccerskills.com/waiver send people to that address.
+# Short names work in upper or lower case. Lines starting with # are notes and are ignored.
+
+# Waivers and forms used in GoHighLevel automations
+waiver               https://api.leadconnectorhq.com/widget/form/xO22A7mEMlM8k0Ltxwkj
+youth-waiver         https://api.leadconnectorhq.com/widget/form/6GQCiyuIh4XO1vfiVG4e
+youth-wavier7        https://api.leadconnectorhq.com/widget/form/ux9AfkhNSIH0K5T1WLDN
+youth-waiver-ff      https://api.leadconnectorhq.com/widget/form/mQ32Q7sChOP9kNus2IYH
+Waiver-ff            https://api.leadconnectorhq.com/widget/form/mQ32Q7sChOP9kNus2IYH
+waiver-ft            https://api.leadconnectorhq.com/widget/form/gZxmXWiLGTgJm1b9mStm
+gear                 https://api.leadconnectorhq.com/widget/form/0WxgAI4WNsiUt5p0UaPs
+youth-discount       https://api.leadconnectorhq.com/widget/form/1qoWOO5KdiiKJzDgEpEt
+elitegirls           https://api.leadconnectorhq.com/widget/form/BOeGxXf1TvYPkUsF0Rkb
+refs                 https://api.leadconnectorhq.com/widget/form/MVv7c9hC9HBxzLEwwLOn
+academyapplication   https://api.leadconnectorhq.com/widget/form/IcArjjMq50QiD3jKiHlA
+sendtoteam           https://api.leadconnectorhq.com/widget/form/9Pg5v2ucLzni49KvBVq8
+indoorsurvey         https://api.leadconnectorhq.com/widget/survey/UphW6vo9hDin7TywMp1n
+
+# Friday night pickup bookings
+aug28pickup          https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k9s2yled
+pickupjuly17         https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k9ffgx1x
+6o3p                 https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k9ffgx1x
+pickupsept11         https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k93xeklxfau3a5qztu38
+pickup-sept-18       https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k93xeklxfau3a5qztu38lrqd98
+pickup-sept-25       https://api.leadconnectorhq.com/widget/booking/UIixWmje6qELNJ64t2Cw
+pickup-oct-2         https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k93xeklxfau3a5qztu38lrqd98owoa09sri6cy
+
+# Payments and other sites
+mastery              https://square.link/u/s7wrut8e
+novembertournament   https://square.link/u/25I4LyPM
+links                https://linktr.ee/stgsoccerskills
+supportjustin        https://www.gofundme.com/f/support-justin-brinkerhoffs-recovery-journey
+
+# Older Typeform links
+youthdiscount        https://elevatepractices.typeform.com/to/nYohL6t7
+2dayhighschool       https://elevatepractices.typeform.com/to/DCei63sP
+cashtournament       https://elevatepractices.typeform.com/to/nBtnXTWo
+Camp-Discount        https://elevatepractices.typeform.com/to/nGwyMXcA
+50off                https://elevatepractices.typeform.com/to/vntDvfSi
+highschool           https://elevatepractices.typeform.com/to/MhHFDSip
+sponsor              https://elevatepractices.typeform.com/to/uUWsuKxL
+
+# Links to pages on this site (old pages that no longer exist now point to the current page)
+lil-kickers-register /lil-kickers-league/
+kickers              /lil-kickers-league/
+kickers2025          /lil-kickers-league/
+youth                /youth-leagues/
+academy              /stg-soccer-academy/
+summer-camp          /
