@@ -1,10 +1,8 @@
 /* League standings, built live from the scores in the league Google Sheet.
 
-   Points per game (STG Soccer Skills league rules):
-     Win  = 6 + 1 per goal scored (max 3) + 1 for a shutout
-     Tie  = 3
-     Loss = 1 per goal scored (max 3)
-   Standings are sorted by points, then goal difference, then goals scored.
+   Points and tie-breakers follow the official rules at /indoor-tournament-rules/:
+   Win 3, Draw 1, Loss 0; ties broken by head-to-head, wins, goal difference
+   (max +5 per game), fewest goals allowed, goals scored, shutouts.
    Finals/playoff weeks and games without both scores are not counted.
 
    Where it shows up:
@@ -44,14 +42,65 @@
     return /^\d+$/.test(t) ? parseInt(t, 10) : null;
   }
   function isFinals(week) { return /final|playoff|semi|champ/i.test(week); }
+  // Official STG rules (stgsoccerskills.com/indoor-tournament-rules/): Win 3, Draw 1, Loss 0.
   function gamePoints(scored, allowed) {
-    if (scored > allowed) return 6 + Math.min(3, scored) + (allowed === 0 ? 1 : 0);
-    if (scored === allowed) return 3;
-    return Math.min(3, scored);
+    return scored > allowed ? 3 : (scored === allowed ? 1 : 0);
+  }
+  function cap(n) { return Math.max(-5, Math.min(5, n)); }   // goal differential counts at most +/-5 per game
+
+  // Stats for one team, optionally only from games against the teams in `only`.
+  function stats(name, games, only) {
+    var s = { pts: 0, w: 0, gd: 0, ga: 0, gf: 0, so: 0 };
+    games.forEach(function (g) {
+      var mine, theirs, opp;
+      if (g.home === name) { mine = g.hs; theirs = g.as; opp = g.away; }
+      else if (g.away === name) { mine = g.as; theirs = g.hs; opp = g.home; }
+      else return;
+      if (only && !only[opp]) return;
+      s.pts += gamePoints(mine, theirs);
+      if (mine > theirs) s.w++;
+      s.gd += cap(mine - theirs); s.ga += theirs; s.gf += mine;
+      if (theirs === 0) s.so++;
+    });
+    return s;
+  }
+  function keyOf(s) { return [s.pts, s.w, s.gd, -s.ga, s.gf, s.so]; }
+  function cmpKeys(a, b) { for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return b[i] - a[i]; return 0; }
+
+  // Order a group of teams that are level on points, following the rules' tie-breakers.
+  function breakTie(names, games) {
+    if (names.length < 2) return names.map(function (n) { return { name: n, tied: false }; });
+    var keys = {};
+    if (names.length === 2) {
+      var h2h = {}; h2h[names[0]] = 1; h2h[names[1]] = 1;
+      names.forEach(function (n) {
+        var o = stats(n, games), h = stats(n, games, h2h);
+        // head-to-head result, most wins, capped GD, fewest GA, most GF, most shutouts
+        keys[n] = [h.pts, o.w, o.gd, -o.ga, o.gf, o.so];
+      });
+    } else {
+      var only = {}; names.forEach(function (n) { only[n] = 1; });
+      names.forEach(function (n) {
+        var m = stats(n, games, only), o = stats(n, games);
+        keys[n] = keyOf(m).concat([o.gd, -o.ga, o.gf, o.so]);
+      });
+    }
+    var sorted = names.slice().sort(function (a, b) { return cmpKeys(keys[a], keys[b]) || a.localeCompare(b); });
+    var out = [], i = 0;
+    while (i < sorted.length) {
+      var j = i + 1;
+      while (j < sorted.length && cmpKeys(keys[sorted[i]], keys[sorted[j]]) === 0) j++;
+      var group = sorted.slice(i, j);
+      if (group.length === 1) out.push({ name: group[0], tied: false });
+      else if (group.length < names.length) out = out.concat(breakTie(group, games));   // re-apply to the smaller group
+      else group.forEach(function (n) { out.push({ name: n, tied: true }); });         // still level: disciplinary record / coin toss
+      i = j;
+    }
+    return out;
   }
 
   function compute(rows) {
-    var teams = {};
+    var teams = {}, games = [];
     function team(name) {
       if (!teams[name]) teams[name] = { name: name, gp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 };
       return teams[name];
@@ -64,6 +113,7 @@
       var h = team(home), a = team(away);
       var hs = num(c[COLS.homeScore]), as = num(c[COLS.awayScore]);
       if (hs === null || as === null) return;   // not played yet
+      games.push({ home: home, away: away, hs: hs, as: as });
       h.gp++; a.gp++;
       h.gf += hs; h.ga += as; a.gf += as; a.ga += hs;
       h.pts += gamePoints(hs, as); a.pts += gamePoints(as, hs);
@@ -71,9 +121,11 @@
       else if (hs < as) { a.w++; h.l++; }
       else { h.d++; a.d++; }
     });
-    var list = Object.keys(teams).map(function (k) { var x = teams[k]; x.gd = x.gf - x.ga; return x; });
-    list.sort(function (x, y) {
-      return y.pts - x.pts || y.gd - x.gd || y.gf - x.gf || x.name.localeCompare(y.name);
+    var byPts = {};
+    Object.keys(teams).forEach(function (k) { var x = teams[k]; x.gd = x.gf - x.ga; (byPts[x.pts] = byPts[x.pts] || []).push(k); });
+    var list = [];
+    Object.keys(byPts).map(Number).sort(function (a, b) { return b - a; }).forEach(function (p) {
+      breakTie(byPts[p].sort(), games).forEach(function (t) { var x = teams[t.name]; x.tied = t.tied; list.push(x); });
     });
     return list;
   }
@@ -89,11 +141,11 @@
         '<th>#</th><th class="t">Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>' +
         '</tr></thead><tbody>';
       list.forEach(function (x, i) {
-        html += '<tr><td>' + (i + 1) + '</td><td class="t"></td><td>' + x.gp + '</td><td>' + x.w + '</td><td>' + x.d +
+        html += '<tr><td>' + (x.tied ? '=' : '') + (i + 1) + '</td><td class="t"></td><td>' + x.gp + '</td><td>' + x.w + '</td><td>' + x.d +
           '</td><td>' + x.l + '</td><td>' + x.gf + '</td><td>' + x.ga + '</td><td>' + (x.gd > 0 ? '+' : '') + x.gd +
           '</td><td class="p">' + x.pts + '</td></tr>';
       });
-      html += '</tbody></table></div><div class="standings-note">Win = 6 pts + 1 per goal (up to 3) + 1 for a shutout. Tie = 3 pts. Loss = 1 per goal (up to 3). Updates automatically as scores are entered.</div>';
+      html += '</tbody></table></div><div class="standings-note">Win = 3 pts, draw = 1, loss = 0. Ties are broken using the <a href="/indoor-tournament-rules/">official tie-breakers</a>. Updates automatically as scores are entered.</div>';
       box.innerHTML = html;
       var names = box.querySelectorAll('td.t');
       list.forEach(function (x, i) { names[i].textContent = x.name; });   // team names as plain text
