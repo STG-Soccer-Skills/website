@@ -1,24 +1,35 @@
 <!--title: Field Schedule | STG Soccer Skills, St. George, Utah-->
 <!--desc: Live field schedules for Field 1 and Field 2 at STG Soccer Skills, 3087 S River Rd, St. George, Utah.-->
-<section class="page-hero">
+<style>
+  /* Built to be shown on the facility TV: both fields side by side, filling the screen */
+  .sched{padding:18px 0 24px}
+  .sched .wrap{max-width:1800px}
+  .sched-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .sched-head h1{font-size:clamp(28px,3.4vw,44px);margin:0;color:var(--navy)}
+  .sched-head h1 span{color:var(--red)}
+  .sched-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .sched-grid h2{font-size:clamp(20px,2.2vw,30px);margin:0 0 8px;color:var(--navy)}
+  .sched .calendar-frame{height:calc(100vh - 230px);min-height:300px}
+  /* hide the GoHighLevel chat bubble on this page so it doesn't cover the TV schedule */
+  chat-widget,#lc_text-widget,.lc_text-widget{display:none!important}
+  @media (max-width:560px){.sched-grid{grid-template-columns:1fr}.sched .calendar-frame{height:520px}}
+</style>
+<section class="sched" aria-label="Field schedules">
   <div class="wrap">
-    <div class="crumbs"><a href="/">Home</a> / Schedule</div>
-    <div class="eyebrow">Live calendars</div>
-    <h1>Field <span>Schedule</span></h1>
-    <p class="lead">What's happening on each field this week. Want to book open field time? Use the field reservation form.</p>
-    <div class="actions"><a class="btn btn-red" href="https://api.leadconnectorhq.com/widget/form/JxPa3nOh9lY4B2o3KXjM">Reserve the Field</a></div>
-  </div>
-</section>
-
-<section aria-labelledby="f1">
-  <div class="wrap two-col">
-    <div>
-      <h2 id="f1" class="block-title">Field 1</h2>
-      <iframe class="calendar-frame" title="Field 1 schedule" loading="lazy" src="https://calendar.google.com/calendar/embed?src=justin%40stgsoccerskills.com&amp;ctz=America%2FDenver&amp;mode=AGENDA&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;singleEvents=1&amp;bgcolor=%23ffffff&amp;hl=en"></iframe>
+    <div class="sched-head">
+      <h1>Field <span>Schedule</span></h1>
+      <a class="btn btn-red" href="https://api.leadconnectorhq.com/widget/form/JxPa3nOh9lY4B2o3KXjM">Reserve the Field</a>
     </div>
-    <div>
-      <h2 class="block-title">Field 2</h2>
-      <iframe class="calendar-frame" title="Field 2 schedule" loading="lazy" src="https://calendar.google.com/calendar/embed?src=c_01c047aa8316dd2ad629cc723fde346ccf2e92ff23e5c3cb8e9c40a813088040%40group.calendar.google.com&amp;ctz=America%2FDenver&amp;mode=AGENDA&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;singleEvents=1&amp;bgcolor=%23ffffff&amp;hl=en"></iframe>
+    <div class="sched-grid">
+      <div>
+        <h2>Field 1</h2>
+        <iframe class="calendar-frame" title="Field 1 schedule" src="https://calendar.google.com/calendar/embed?src=justin%40stgsoccerskills.com&amp;ctz=America%2FDenver&amp;mode=AGENDA&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;singleEvents=1&amp;bgcolor=%23ffffff&amp;hl=en"></iframe>
+      </div>
+      <div>
+        <h2>Field 2</h2>
+        <iframe class="calendar-frame" title="Field 2 schedule" src="https://calendar.google.com/calendar/embed?src=c_01c047aa8316dd2ad629cc723fde346ccf2e92ff23e5c3cb8e9c40a813088040%40group.calendar.google.com&amp;ctz=America%2FDenver&amp;mode=AGENDA&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;singleEvents=1&amp;bgcolor=%23ffffff&amp;hl=en"></iframe>
+      </div>
     </div>
   </div>
 </section>
+<script>setTimeout(function(){location.reload()},15*60*1000)</script>
