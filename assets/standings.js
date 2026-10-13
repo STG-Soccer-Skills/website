@@ -110,6 +110,7 @@
       var week = text(c[COLS.week]);
       var home = text(c[COLS.home]), away = text(c[COLS.away]);
       if (isFinals(week) || !home || !away || /^home team$/i.test(home)) return;
+      if (/^bye( week)?$/i.test(home) || /^bye( week)?$/i.test(away)) return;   // bye weeks aren't games
       var h = team(home), a = team(away);
       var hs = num(c[COLS.homeScore]), as = num(c[COLS.awayScore]);
       if (hs === null || as === null) return;   // not played yet
@@ -140,8 +141,11 @@
       var html = head + '<div class="standings-wrap"><table><thead><tr>' +
         '<th>#</th><th class="t">Team</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>' +
         '</tr></thead><tbody>';
+      var pos = 0;
       list.forEach(function (x, i) {
-        html += '<tr><td>' + (x.tied ? '=' : '') + (i + 1) + '</td><td class="t"></td><td>' + x.gp + '</td><td>' + x.w + '</td><td>' + x.d +
+        var prev = list[i - 1];
+        if (!(x.tied && prev && prev.tied && prev.pts === x.pts)) pos = i + 1;   // tied teams share a position
+        html += '<tr><td>' + (x.tied ? '=' : '') + pos + '</td><td class="t"></td><td>' + x.gp + '</td><td>' + x.w + '</td><td>' + x.d +
           '</td><td>' + x.l + '</td><td>' + x.gf + '</td><td>' + x.ga + '</td><td>' + (x.gd > 0 ? '+' : '') + x.gd +
           '</td><td class="p">' + x.pts + '</td></tr>';
       });
