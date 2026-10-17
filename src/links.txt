@@ -43,9 +43,18 @@ highschool           https://elevatepractices.typeform.com/to/MhHFDSip
 sponsor              https://elevatepractices.typeform.com/to/uUWsuKxL
 
 # Links to pages on this site (old pages that no longer exist now point to the current page)
-lil-kickers-register /lil-kickers-league/
-kickers              /lil-kickers-league/
-kickers2025          /lil-kickers-league/
+lil-kickers-register /stg-minis-league/
+kickers              /stg-minis-league/
+kickers2025          /stg-minis-league/
 youth                /youth-leagues/
 academy              /stg-soccer-academy/
 summer-camp          /
+
+# Old page addresses (renamed from "Lil Kickers" to "STG Minis" in Oct 2026) forward to the new pages
+lil-kickers-league                 /stg-minis-league/
+7elite-pre-academy-lil-kickers     /7elite-pre-academy-stg-minis/
+fire-fc-lil-kickers                /fire-fc-stg-minis/
+premier-fc-lil-kickers             /premier-fc-stg-minis/
+la-roca-lil-kickers                /la-roca-stg-minis/
+ignite-fc-lil-kickers              /ignite-fc-stg-minis/
+minis                              /stg-minis-league/
