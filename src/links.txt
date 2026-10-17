@@ -58,3 +58,4 @@ premier-fc-lil-kickers             /premier-fc-stg-minis/
 la-roca-lil-kickers                /la-roca-stg-minis/
 ignite-fc-lil-kickers              /ignite-fc-stg-minis/
 minis                              /stg-minis-league/
+juniors                            /4-5-years-old/
