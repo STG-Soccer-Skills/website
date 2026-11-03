@@ -1,0 +1,210 @@
+/* Rising Strikers schedule tables.
+   Same structure and colors as the Men's Tier 1 schedule page,
+   plus a colored pill for each team name. */
+
+.schedule-container {
+    font-family: Barlow, "Segoe UI", Roboto, Arial, sans-serif;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 16px 10px;
+    color: #333;
+}
+
+.schedule-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.filter-box {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+    background-color: #fcfcfc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.week-header {
+    background-color: #00b0da;
+    color: white;
+    padding: 12px 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-top: 30px;
+    min-width: 640px;
+}
+
+#scheduleMount {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.schedule-table {
+    width: 100%;
+    min-width: 640px;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.schedule-table th {
+    background-color: #f8f8f8;
+    text-align: left;
+    padding: 12px 10px;
+    font-size: 11px;
+    color: #666;
+    border-bottom: 1px solid #eee;
+    text-transform: uppercase;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.schedule-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.score-cell {
+    background-color: #f9f9f9;
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #f0f0f0;
+}
+
+.team-name {
+    font-weight: 700;
+}
+
+.bye-week {
+    color: #999;
+    font-style: italic;
+}
+
+.schedule-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.schedule-table thead tr,
+.schedule-table thead tr:nth-child(even) {
+    background-color: transparent;
+}
+
+.wear-note {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.wear-white {
+    background-color: #ffffff;
+    color: #444;
+    border: 1px solid #ccc;
+}
+
+.wear-black {
+    background-color: #222222;
+    color: #ffffff;
+    border: 1px solid #222222;
+}
+
+.memorial-day-row td {
+    text-align: center;
+    font-weight: bold;
+    color: #777;
+    background-color: #f5f5f5;
+    padding: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Team name pills. Unknown names keep this neutral style. */
+.team-pill {
+    display: inline-block;
+    max-width: 100%;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    background: #f3f4f6;
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    vertical-align: middle;
+}
+
+.schedule-table tr:nth-child(even) .score-cell {
+    background-color: #f3f3f3;
+}
+
+@media (max-width: 600px) {
+    .schedule-container { padding: 0 10px 8px; }
+    .schedule-title { font-size: 22px; }
+    .wear-note { display: block; margin-left: 0; margin-top: 3px; }
+    .team-pill { font-size: 13px; padding: 3px 10px; }
+
+    /* The 7-column table is wider than a phone. Stack each game so both
+       teams and the score boxes stay on screen. Week bars stay as-is. */
+    .week-header, .schedule-table { min-width: 0; }
+    .schedule-table thead { display: none; }
+    .schedule-table tr {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 12px;
+        row-gap: 6px;
+        align-items: center;
+        padding: 12px 2px;
+    }
+    .schedule-table td {
+        display: block;
+        width: auto !important;
+        padding: 0;
+        border: 0;
+        text-align: left !important;
+        background: transparent !important;
+        font-size: 14px;
+    }
+    .schedule-table td:nth-child(1) { grid-column: 1; grid-row: 1; font-weight: 700; }
+    .schedule-table td:nth-child(3) { grid-column: 1; grid-row: 2; color: #555; }
+    .schedule-table td:nth-child(2) {
+        grid-column: 2; grid-row: 1 / span 2;
+        justify-self: end;
+        text-align: right !important;
+        font-weight: 700;
+    }
+    .schedule-table td:nth-child(2)::before {
+        content: "Field ";
+        font-weight: 600;
+        color: #777;
+    }
+    .schedule-table td:nth-child(4) { grid-column: 1; grid-row: 3; }
+    .schedule-table td:nth-child(5) { grid-column: 2; grid-row: 3; }
+    .schedule-table td:nth-child(6) { grid-column: 1; grid-row: 4; }
+    .schedule-table td:nth-child(7) { grid-column: 2; grid-row: 4; }
+    .schedule-table td.score-cell {
+        width: 46px !important;
+        min-height: 28px;
+        line-height: 28px;
+        text-align: center !important;
+        justify-self: end;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        background: #f3f4f6 !important;
+    }
+}

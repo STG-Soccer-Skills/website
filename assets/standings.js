@@ -10,9 +10,16 @@
       added above the team search box automatically.
    2) Any page element like
         <div class="standings-auto" data-sheet="SHEET_ID" data-tab="Tab Name" data-title="Men's Tier 1"></div>
-      becomes a standings table for that tab (used on /adult-league-rankings/). */
+      becomes a standings table for that tab (used on /adult-league-rankings/).
+
+   Adult tabs use week/home/scores at columns B/E/F/G/H. A page whose sheet is
+   laid out differently (the Rising Strikers workbook) can set STANDINGS_COLS
+   to {week, home, homeScore, away, awayScore} and SHEET_HEADERS (1 = first
+   row is the header). Leave both unset to keep the adult-league behavior. */
 (function () {
-  var COLS = { week: 1, home: 4, homeScore: 5, away: 6, awayScore: 7 };
+  var COLS = (typeof STANDINGS_COLS === "object" && STANDINGS_COLS)
+    ? STANDINGS_COLS
+    : { week: 1, home: 4, homeScore: 5, away: 6, awayScore: 7 };
 
   var css = '' +
     '.standings{margin:0 0 28px}' +
@@ -152,7 +159,11 @@
       html += '</tbody></table></div><div class="standings-note">Win = 3 pts, draw = 1, loss = 0. Ties are broken using the <a href="/indoor-tournament-rules/">official tie-breakers</a>. Updates automatically as scores are entered.</div>';
       box.innerHTML = html;
       var names = box.querySelectorAll('td.t');
-      list.forEach(function (x, i) { names[i].textContent = x.name; });   // team names as plain text
+      list.forEach(function (x, i) {
+        names[i].textContent = x.name;   // team names as plain text
+        // Optional hook (Rising Strikers schedules) paints a team-color pill.
+        if (typeof window.colorScheduleTeam === "function") window.colorScheduleTeam(names[i], x.name);
+      });
     }
     box.querySelector('.standings-title').textContent = title;
     return box;
@@ -161,6 +172,11 @@
   function load(sheetId, tab, done) {
     var url = 'https://docs.google.com/spreadsheets/d/' + encodeURIComponent(sheetId) +
       '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(tab);
+    // Only pages that set SHEET_HEADERS change the request. Adult sheets keep
+    // the original URL, which is what their tabs were built against.
+    if (typeof SHEET_HEADERS !== "undefined" && SHEET_HEADERS !== null && SHEET_HEADERS !== "") {
+      url += "&headers=" + encodeURIComponent(SHEET_HEADERS);
+    }
     fetch(url).then(function (r) { return r.text(); }).then(function (t) {
       var json = JSON.parse(t.substring(t.indexOf('{'), t.lastIndexOf('}') + 1));
       done(json.table && json.table.rows ? compute(json.table.rows) : []);
