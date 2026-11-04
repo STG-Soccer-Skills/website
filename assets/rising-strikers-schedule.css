@@ -133,7 +133,19 @@
     letter-spacing: 1px;
 }
 
-/* Team name pills. Unknown names keep this neutral style. */
+.schedule-unavailable {
+    margin: 4px 0 20px;
+    padding: 16px 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    color: #334155;
+    font-size: 16px;
+}
+
+/* Team name pills. Known Rising Strikers names and auto-assigned
+   colors set their own background inline. This gray is only a fallback
+   if a name is painted before a color is chosen. */
 .team-pill {
     display: inline-block;
     max-width: 100%;
@@ -188,7 +200,9 @@
         text-align: right !important;
         font-weight: 700;
     }
-    .schedule-table td:nth-child(2)::before {
+    /* Rising Strikers stores a bare color ("Blue"). Winter Youth already
+       stores "Field 1", so only prefix the bare values. */
+    .schedule-table td:nth-child(2).field-bare::before {
         content: "Field ";
         font-weight: 600;
         color: #777;

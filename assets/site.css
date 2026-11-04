@@ -42,6 +42,9 @@ nav.main>ul>li>a:hover,nav.main>ul>li>button:hover,nav.main>ul>li>label:hover{co
 .sub a{display:block;padding:7px 18px;text-decoration:none;font-size:15px;color:var(--ink)}
 .sub a:hover{background:var(--soft);color:var(--red)}
 nav.main li:hover>.sub,nav.main li:focus-within>.sub{display:block}
+@media (min-width:1281px){
+  nav.main .sub{max-height:calc(100vh - 130px);overflow-y:auto}
+}
 .nav-cta{margin-left:8px}
 nav.main>ul>li.nav-cta>a.btn{white-space:nowrap;font-size:16px;padding:10px 16px;background:var(--red);color:#fff}
 nav.main>ul>li.nav-cta>a.btn:hover{background:var(--red-dark);color:#fff}
