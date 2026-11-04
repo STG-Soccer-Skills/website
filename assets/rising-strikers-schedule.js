@@ -1,15 +1,19 @@
-/* Rising Strikers live schedule.
-   Each bracket page sets SHEET_ID, SHEET_TAB, and PAGE_TITLE (and may set
+/* Live bracket schedule (Rising Strikers and Winter Youth League).
+   Each page sets SHEET_ID, SHEET_TAB, and PAGE_TITLE (and may set
    HOME_WEAR / AWAY_WEAR). Games are read from the published Google Sheet,
    so edits show up here without a redeploy.
 
    Sheet columns (row 1 is the header):
    A Bracket, B Date, C Week, D Time, E Field,
    F Home Team, G Home Score, H Away Team, I Away Score.
-   Dates and times are plain text ("Fri 11/6/2026", "4:45 PM").
+   Dates and times are plain text ("Sat 11/7/2026", "8:00 AM").
 
    headers=1 is required: without it, the Visualization API treats the first
-   rows of some tabs (Strikers) as headers and those games never appear.
+   rows of some tabs as headers and those games never appear.
+
+   Every row on the tab is shown. Do not filter on the Bracket cell: Winter
+   Youth tab names use dashes ("Girls U10-U11") while the Bracket values use
+   slashes ("Girls U10/U11").
 */
 (function () {
     var SHEET_ID = window.SHEET_ID;
@@ -56,15 +60,60 @@
         "arctic foxes":        { bg: "#F0F9FF", fg: "#0F172A", border: "#38BDF8" }
     };
 
+    /* Stable fallback colors for team names that are not listed above.
+       Hues alternate so neighbors stay easy to tell apart. Same name always
+       prefers the same swatch; if that swatch is already used on this page,
+       the next free one is used so a bracket never gets two identical pills. */
+    var AUTO_PALETTE = [
+        { bg: "#1D4ED8", fg: "#FFFFFF" },
+        { bg: "#15803D", fg: "#FFFFFF" },
+        { bg: "#B91C1C", fg: "#FFFFFF" },
+        { bg: "#FDE047", fg: "#1C1917", border: "#A16207" },
+        { bg: "#7E22CE", fg: "#FFFFFF" },
+        { bg: "#99F6E4", fg: "#134E4A", border: "#0F766E" },
+        { bg: "#C2410C", fg: "#FFFFFF" },
+        { bg: "#FBCFE8", fg: "#831843", border: "#9D174D" },
+        { bg: "#1E3A8A", fg: "#FFFFFF" },
+        { bg: "#F6C445", fg: "#3F2A00", border: "#92400E" },
+        { bg: "#0F766E", fg: "#FFFFFF" },
+        { bg: "#7DD3FC", fg: "#0C4A6E", border: "#0369A1" },
+        { bg: "#9F1239", fg: "#FFFFFF" },
+        { bg: "#9A3412", fg: "#FFFFFF" },
+        { bg: "#3730A3", fg: "#FFFFFF" },
+        { bg: "#1F2937", fg: "#F6D36B", border: "#F6D36B" }
+    ];
+    var autoAssigned = {};
+    var autoUsed = {};
+
     function canon(name) {
         return String(name || "").replace(/\s+/g, " ").trim().toLowerCase();
+    }
+
+    function autoColor(name) {
+        var key = canon(name);
+        if (autoAssigned[key]) return autoAssigned[key];
+        var h = 0;
+        for (var i = 0; i < key.length; i++) h = (h * 33 + key.charCodeAt(i)) >>> 0;
+        var start = AUTO_PALETTE.length ? h % AUTO_PALETTE.length : 0;
+        var idx = start;
+        for (var n = 0; n < AUTO_PALETTE.length; n++) {
+            idx = (start + n) % AUTO_PALETTE.length;
+            if (!autoUsed[idx]) break;
+        }
+        autoUsed[idx] = true;
+        autoAssigned[key] = AUTO_PALETTE[idx];
+        return autoAssigned[key];
+    }
+
+    function styleFor(name) {
+        return TEAM_COLORS[canon(name)] || autoColor(name);
     }
 
     function makePill(name) {
         var pill = document.createElement("span");
         pill.className = "team-pill";
         pill.textContent = name;
-        var style = TEAM_COLORS[canon(name)];
+        var style = styleFor(name);
         if (!style) return pill;
         pill.style.backgroundColor = style.bg;
         pill.style.color = style.fg;
@@ -285,7 +334,9 @@
                 else if (!g.homeTeam && g.awayTeam) { homeText = "Bye Week"; homeClass = "bye-week"; }
 
                 tr.appendChild(buildCell(g.dateText, "text-center"));
-                tr.appendChild(buildCell(g.field, "text-center"));
+                var fieldCell = buildCell(g.field, "text-center");
+                if (g.field && !/^field\b/i.test(g.field)) fieldCell.classList.add("field-bare");
+                tr.appendChild(fieldCell);
                 tr.appendChild(buildCell(g.time, "text-center"));
                 tr.appendChild(buildTeamCell(homeText, homeClass));
                 tr.appendChild(buildCell(g.homeScore, "score-cell"));
@@ -303,8 +354,25 @@
     function showStatus(msg) {
         var s = document.getElementById("scheduleStatus");
         if (!s) return;
+        s.className = "";
         s.textContent = msg;
         s.style.display = msg ? "block" : "none";
+    }
+
+    function showUnavailable() {
+        var s = document.getElementById("scheduleStatus");
+        if (!s) return;
+        s.className = "schedule-unavailable";
+        s.textContent = "Schedule not available yet. It will show here as soon as the sheet is shared.";
+        s.style.display = "block";
+        var search = document.getElementById("teamSearch");
+        if (search) search.style.display = "none";
+    }
+
+    function isUnavailable(err, status) {
+        if (status === 401 || status === 403) return true;
+        var msg = String((err && err.message) || err || "");
+        return /unavailable|Failed to fetch|NetworkError|Load failed|Unexpected response/i.test(msg);
     }
 
     function loadSchedule() {
@@ -314,11 +382,25 @@
         }
         fetch(gvizUrl(SHEET_ID, SHEET_TAB))
             .then(function (r) {
+                if (r.status === 401 || r.status === 403) {
+                    var denied = new Error("unavailable");
+                    denied.code = "unavailable";
+                    throw denied;
+                }
                 if (!r.ok) throw new Error("Could not reach the sheet (HTTP " + r.status + ").");
                 return r.text();
             })
             .then(function (text) {
+                if (/^\s*</.test(text) || /ServiceLogin/.test(text)) {
+                    var denied = new Error("unavailable");
+                    denied.code = "unavailable";
+                    throw denied;
+                }
                 var data = parseGviz(text);
+                if (data.status && data.status !== "ok") {
+                    var reason = (data.errors && data.errors[0] && (data.errors[0].detailed_message || data.errors[0].message)) || data.status;
+                    throw new Error(reason);
+                }
                 if (!data.table || !data.table.rows) throw new Error("No data found in tab \"" + SHEET_TAB + "\".");
                 var games = rowsToGames(data.table.rows);
                 if (!games.length) throw new Error("Tab \"" + SHEET_TAB + "\" has no games yet.");
@@ -326,7 +408,8 @@
                 render(games);
             })
             .catch(function (err) {
-                showStatus("Couldn't load the schedule: " + (err.message || err));
+                if ((err && err.code === "unavailable") || isUnavailable(err)) showUnavailable();
+                else showStatus("Couldn't load the schedule: " + (err.message || err));
             });
     }
 
