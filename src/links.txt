@@ -67,3 +67,7 @@ la-roca-stg-minis                  /la-roca-rising-strikers/
 ignite-fc-lil-kickers              /ignite-fc-rising-strikers/
 ignite-fc-stg-minis                /ignite-fc-rising-strikers/
 juniors                            /4-5-years-old/
+
+# Winter Youth League no longer has a U6 bracket (Nov 2026). The sheet tab is empty.
+# The old schedule address forwards to the league page instead of an empty schedule.
+winter-youth-league-u6-schedule   /winter-youth-league/
