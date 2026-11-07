@@ -71,3 +71,7 @@ juniors                            /4-5-years-old/
 # Winter Youth League no longer has a U6 bracket (Nov 2026). The sheet tab is empty.
 # The old schedule address forwards to the league page instead of an empty schedule.
 winter-youth-league-u6-schedule   /winter-youth-league/
+
+# Winter Youth League Girls U9 is retired (Nov 2026). The old schedule address
+# forwards to the league page. The redirect page is noindex.
+winter-youth-league-girls-u9-schedule   /winter-youth-league/
