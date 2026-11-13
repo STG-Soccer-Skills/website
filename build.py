@@ -74,7 +74,9 @@ def build():
             out = os.path.join(DIST, slug.replace('__', '/'), 'index.html')
         extra = ld if slug == 'index' else ''
         if noindex:
-            extra += '\n<meta name="robots" content="noindex">'
+            # <!--noindex: nofollow--> also adds nofollow and stays out of the sitemap.
+            robots = 'noindex, nofollow' if 'nofollow' in noindex.lower() else 'noindex'
+            extra += '\n<meta name="robots" content="%s">' % robots
         elif slug != '404':
             urls.append(url)
         html = HEAD.format(title=title, desc=desc, url=url, site=SITE, extra_head=extra) \
