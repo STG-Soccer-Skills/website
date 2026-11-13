@@ -325,3 +325,60 @@ table.data .btn{font-size:14px;padding:7px 12px}
 .wp-col>.wp-cols+.wp-cols{margin-top:28px}
 .wp-dark+.wp-dark{padding-top:0}
 .wp-text h2+p,.wp-text h1+p{margin-top:10px}
+
+/* ===== College Prep membership (unlisted page) ===== */
+.page-hero.cp-hero{padding:0;min-height:620px;display:flex;align-items:center;background:var(--navy-deep)}
+.page-hero.cp-hero::after{display:none}
+.cp-hero-media{position:absolute;inset:0;z-index:0;pointer-events:none}
+.cp-hero-media img{width:100%;height:100%;object-fit:cover;object-position:68% 42%}
+.cp-hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(15,37,71,.97) 0%,rgba(15,37,71,.92) 34%,rgba(15,37,71,.68) 58%,rgba(15,37,71,.32) 100%)}
+.cp-hero .wrap{position:relative;z-index:1;width:100%;padding-top:72px;padding-bottom:68px}
+.cp-hero-copy{max-width:640px}
+.cp-hero h1{max-width:12ch}
+.cp-separate{background:var(--navy);color:#fff;padding:56px 0}
+.cp-separate .eyebrow{color:var(--sky)}
+.cp-separate h2{font-size:clamp(32px,4.4vw,52px);max-width:16ch;margin:8px 0 12px}
+.cp-separate p{color:#DCE6F5;max-width:42rem;font-size:18px}
+.cp-work{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.cp-work .tile{grid-column:span 2}
+.cp-work .tile:nth-child(4),.cp-work .tile:nth-child(5){grid-column:span 3}
+.cp-frame{margin:0}
+.cp-frame img{width:100%;height:auto;border-radius:6px;display:block}
+.feature.cp-coach .photo::before,.feature.cp-creds .photo::before{content:none}
+.feature.cp-coach .photo img{aspect-ratio:2/3;object-position:center 22%;max-height:740px}
+.feature.cp-creds{grid-template-columns:1.15fr .85fr}
+.feature.cp-creds .photo{order:2}
+.feature.cp-creds .photo img{aspect-ratio:3/4;object-position:center 18%}
+.cp-caption{margin-top:10px;font-size:14px;color:var(--muted)}
+.cp-plan .price{font-size:clamp(34px,4vw,48px);text-transform:uppercase;letter-spacing:.02em;max-width:10ch}
+.cp-quiet{color:var(--muted);font-size:15px;margin-top:6px}
+.cp-cta .actions .btn{white-space:nowrap}
+@media (max-width:1280px){
+  .feature.cp-creds{grid-template-columns:1fr}
+  .feature.cp-creds .photo{order:-1}
+}
+@media (max-width:1020px){
+  .cp-work{grid-template-columns:1fr 1fr}
+  .cp-work .tile,.cp-work .tile:nth-child(4),.cp-work .tile:nth-child(5){grid-column:auto}
+  .cp-work .tile:last-child{grid-column:1 / -1}
+}
+@media (max-width:960px){
+  .page-hero.cp-hero{display:block;min-height:0}
+  .cp-hero-media{position:relative;height:200px}
+  .cp-hero-media::after{background:linear-gradient(to top,rgba(15,37,71,1) 0%,rgba(15,37,71,.2) 50%,rgba(15,37,71,.15) 100%)}
+  .cp-hero .wrap{padding-top:22px;padding-bottom:32px}
+  .cp-hero-copy{display:flex;flex-direction:column}
+  .cp-hero-copy .crumbs{order:1}
+  .cp-hero-copy .eyebrow{order:2}
+  .cp-hero-copy h1{order:3}
+  .cp-hero-copy .actions{order:4;margin-top:16px}
+  .cp-hero-copy .lead{order:5;margin-top:16px;font-size:17px}
+  .cp-hero-copy .facts{order:6}
+}
+@media (max-width:640px){
+  .cp-work{grid-template-columns:1fr}
+  .cp-work .tile:last-child{grid-column:auto}
+  .cp-hero-media{height:176px}
+  .cp-hero .actions .btn,.cp-plan .btn,.cp-cta .actions .btn{width:100%;justify-content:center}
+  .feature.cp-coach .photo img,.feature.cp-creds .photo img{max-height:none}
+}
