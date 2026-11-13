@@ -94,7 +94,7 @@ section{padding:88px 0}
 .card h3{font-size:32px;color:var(--navy);margin:6px 0 10px}
 .card p{color:var(--muted);font-size:16px;flex:1}
 .card .prize{font-family:var(--display);font-weight:800;font-size:44px;color:var(--red);line-height:1;margin:4px 0 10px}
-.card .btn{margin-top:20px;align-self:flex-start;font-size:16px;padding:10px 18px}
+.card .btn{margin-top:20px;align-self:flex-start;font-size:16px;padding:10px 18px;max-width:100%}
 
 /* video */
 .video-band{background:var(--navy);color:#fff}
