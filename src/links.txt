@@ -27,6 +27,9 @@ pickup-sept-18       https://api.leadconnectorhq.com/widget/bookings/friday-nigh
 pickup-sept-25       https://api.leadconnectorhq.com/widget/booking/UIixWmje6qELNJ64t2Cw
 pickup-oct-2         https://api.leadconnectorhq.com/widget/bookings/friday-night-pickup-soccerewtjlwa6j8vvpi2edkm2m7cbib4vy9ava9kun6hlwkwa11hqoevd1b3744pw35azanzo93g4c802k93xeklxfau3a5qztu38lrqd98owoa09sri6cy
 
+# Thanksgiving pickup soccer on Nov 27 (seasonal; delete this line after the event)
+thanksgiving-pickup    https://api.leadconnectorhq.com/widget/booking/q1Sorjz19Ylu73y6lYot
+
 # Payments and other sites
 mastery              https://square.link/u/s7wrut8e
 novembertournament   https://square.link/u/25I4LyPM
