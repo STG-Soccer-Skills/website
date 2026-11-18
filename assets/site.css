@@ -292,6 +292,10 @@ table.data .btn{font-size:14px;padding:7px 12px}
 .wp-img{display:block;max-width:100%;height:auto;border-radius:8px;margin:0 auto}
 .wp-post{max-width:760px}
 .wp-post img{max-width:100%;height:auto;border-radius:8px}
+.wp-post .post-tax{font-size:15px;color:var(--muted)}
+.wp-post figure{margin:8px 0}
+.wp-post figure.portrait{max-width:420px}
+.wp-post figcaption{font-size:14px;color:var(--muted);margin-top:8px}
 .wp-feature{width:100%;max-height:440px;object-fit:cover;border-radius:10px;margin-bottom:10px}
 .wp-col .actions,.wp-text+.actions{margin-top:18px}
 .wp-box{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;color:var(--ink);height:100%}
