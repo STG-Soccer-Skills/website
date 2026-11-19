@@ -383,3 +383,18 @@ table.data .btn{font-size:14px;padding:7px 12px}
   .cp-runs-card{grid-template-columns:80px 1fr;padding:14px}
   .cp-runs-card img{width:80px;height:104px}
 }
+
+/* Community partner logos on the sponsor page */
+.partner-band{background:var(--soft);padding:56px 0}
+.partner-band .section-head{text-align:center;margin-left:auto;margin-right:auto;margin-bottom:28px}
+.partner-band .section-head h2{font-size:clamp(36px,5vw,52px)}
+.partner-band .section-head p{font-size:18px}
+.partner-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;list-style:none;margin:0;padding:0}
+.partner-card{flex:0 0 250px;max-width:100%;background:#fff;border:1px solid var(--line);border-radius:6px;padding:20px 18px 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.partner-card img{width:100%;height:108px;object-fit:contain;object-position:center}
+.partner-name{min-height:2.4em;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:15px;line-height:1.2;color:var(--navy)}
+@media (max-width:700px){
+  .partner-band{padding:40px 0}
+  .partner-card{flex-basis:calc(50% - 9px)}
+  .partner-card img{height:88px}
+}
