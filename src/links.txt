@@ -78,3 +78,7 @@ winter-youth-league-u6-schedule   /winter-youth-league/
 # Winter Youth League Girls U9 is retired (Nov 2026). The old schedule address
 # forwards to the league page. The redirect page is noindex.
 winter-youth-league-girls-u9-schedule   /winter-youth-league/
+
+# Winter Youth League Girls HS is canceled for this season (Nov 2026).
+# The old schedule address forwards to the league page. The redirect page is noindex.
+winter-youth-league-girls-hs-schedule   /winter-youth-league/
