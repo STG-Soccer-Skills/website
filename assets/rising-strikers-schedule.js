@@ -3,6 +3,12 @@
    HOME_WEAR / AWAY_WEAR). Games are read from the published Google Sheet,
    so edits show up here without a redeploy.
 
+   A page may set SCHEDULE_OFF_DAYS to show a date with no games, in order
+   between the loaded weeks. Each entry is
+   { year, month, day, label, note }. The note is shown after "NO GAMES".
+   An entry is skipped when that calendar day already has a game, so a
+   later sheet edit does not stack a notice on top of real games.
+
    Sheet columns (row 1 is the header):
    A Bracket, B Date, C Week, D Time, E Field,
    F Home Team, G Home Score, H Away Team, I Away Score.
@@ -256,6 +262,73 @@
         });
     }
 
+    function startOfDay(d) {
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+    }
+
+    function sameDay(a, b) {
+        return startOfDay(a) === startOfDay(b);
+    }
+
+    function groupStart(group) {
+        var found = null;
+        group.games.forEach(function (g) {
+            if (!g.dateObj) return;
+            var t = startOfDay(g.dateObj);
+            if (found === null || t < found) found = t;
+        });
+        return found;
+    }
+
+    /* Opt-in dates with no games (Rising Strikers Thanksgiving week).
+       Winter Youth and any page that does not set SCHEDULE_OFF_DAYS are unchanged. */
+    function readOffDays(games) {
+        var raw = window.SCHEDULE_OFF_DAYS;
+        if (!raw || !raw.length) return [];
+        var days = [];
+        raw.forEach(function (off) {
+            var year = +off.year, month = +off.month, day = +off.day;
+            if (!year || !month || !day) return;
+            var date = new Date(year, month - 1, day);
+            if (isNaN(date.getTime())) return;
+            if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return;
+            var taken = games.some(function (g) { return g.dateObj && sameDay(g.dateObj, date); });
+            if (taken) return;
+            days.push({
+                date: date,
+                label: off.label || headerDate(date),
+                note: off.note ? String(off.note) : ""
+            });
+        });
+        days.sort(function (a, b) { return a.date - b.date; });
+        return days;
+    }
+
+    function renderOffDay(mount, off) {
+        var header = document.createElement("div");
+        header.className = "week-header";
+        header.textContent = off.label;
+        mount.appendChild(header);
+
+        var notice = document.createElement("div");
+        notice.className = "no-games-notice";
+        notice.setAttribute("data-off-day", off.date.getFullYear() + "-" + pad2(off.date.getMonth() + 1) + "-" + pad2(off.date.getDate()));
+
+        var title = document.createElement("span");
+        title.className = "no-games-title";
+        title.textContent = "NO GAMES";
+        notice.appendChild(title);
+
+        if (off.note) {
+            var rest = document.createElement("span");
+            rest.className = "no-games-note";
+            rest.textContent = " - " + off.note;
+            notice.appendChild(rest);
+        }
+
+        mount.appendChild(notice);
+    }
+
     function buildCell(text, className) {
         var td = document.createElement("td");
         if (className) td.className = className;
@@ -302,53 +375,68 @@
         return thead;
     }
 
+    function renderGroup(mount, group) {
+        var isFinals = isFinalsWeek(group.week);
+        var firstWithDate = group.games.find(function (g) { return g.dateObj; });
+        var headerDateObj = firstWithDate ? firstWithDate.dateObj : null;
+        var rawDate = group.games[0] ? group.games[0].dateText : "";
+
+        var header = document.createElement("div");
+        header.className = "week-header";
+        header.textContent = weekLabel(group.week, headerDateObj, rawDate);
+        mount.appendChild(header);
+
+        var table = document.createElement("table");
+        table.className = "schedule-table";
+        table.appendChild(buildHead());
+        var tbody = document.createElement("tbody");
+        tbody.className = "filterable-body";
+
+        group.games.forEach(function (g) {
+            var tr = document.createElement("tr");
+            var teamClass = isFinals ? "team-name" : null;
+
+            var homeText = g.homeTeam, awayText = g.awayTeam;
+            var homeClass = teamClass, awayClass = teamClass;
+            if (g.homeTeam && !g.awayTeam)      { awayText = "Bye Week"; awayClass = "bye-week"; }
+            else if (!g.homeTeam && g.awayTeam) { homeText = "Bye Week"; homeClass = "bye-week"; }
+
+            tr.appendChild(buildCell(g.dateText, "text-center"));
+            var fieldCell = buildCell(g.field, "text-center");
+            if (g.field && !/^field\b/i.test(g.field)) fieldCell.classList.add("field-bare");
+            tr.appendChild(fieldCell);
+            tr.appendChild(buildCell(g.time, "text-center"));
+            tr.appendChild(buildTeamCell(homeText, homeClass));
+            tr.appendChild(buildCell(g.homeScore, "score-cell"));
+            tr.appendChild(buildTeamCell(awayText, awayClass));
+            tr.appendChild(buildCell(g.awayScore, "score-cell"));
+
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+        mount.appendChild(table);
+    }
+
     function render(games) {
         var mount = document.getElementById("scheduleMount");
         mount.innerHTML = "";
         var groups = groupByWeek(games);
+        var offDays = readOffDays(games);
+        var offIndex = 0;
 
         groups.forEach(function (group) {
-            var isFinals = isFinalsWeek(group.week);
-            var firstWithDate = group.games.find(function (g) { return g.dateObj; });
-            var headerDateObj = firstWithDate ? firstWithDate.dateObj : null;
-            var rawDate = group.games[0] ? group.games[0].dateText : "";
-
-            var header = document.createElement("div");
-            header.className = "week-header";
-            header.textContent = weekLabel(group.week, headerDateObj, rawDate);
-            mount.appendChild(header);
-
-            var table = document.createElement("table");
-            table.className = "schedule-table";
-            table.appendChild(buildHead());
-            var tbody = document.createElement("tbody");
-            tbody.className = "filterable-body";
-
-            group.games.forEach(function (g) {
-                var tr = document.createElement("tr");
-                var teamClass = isFinals ? "team-name" : null;
-
-                var homeText = g.homeTeam, awayText = g.awayTeam;
-                var homeClass = teamClass, awayClass = teamClass;
-                if (g.homeTeam && !g.awayTeam)      { awayText = "Bye Week"; awayClass = "bye-week"; }
-                else if (!g.homeTeam && g.awayTeam) { homeText = "Bye Week"; homeClass = "bye-week"; }
-
-                tr.appendChild(buildCell(g.dateText, "text-center"));
-                var fieldCell = buildCell(g.field, "text-center");
-                if (g.field && !/^field\b/i.test(g.field)) fieldCell.classList.add("field-bare");
-                tr.appendChild(fieldCell);
-                tr.appendChild(buildCell(g.time, "text-center"));
-                tr.appendChild(buildTeamCell(homeText, homeClass));
-                tr.appendChild(buildCell(g.homeScore, "score-cell"));
-                tr.appendChild(buildTeamCell(awayText, awayClass));
-                tr.appendChild(buildCell(g.awayScore, "score-cell"));
-
-                tbody.appendChild(tr);
-            });
-
-            table.appendChild(tbody);
-            mount.appendChild(table);
+            var start = groupStart(group);
+            while (offIndex < offDays.length && start !== null && startOfDay(offDays[offIndex].date) < start) {
+                renderOffDay(mount, offDays[offIndex]);
+                offIndex++;
+            }
+            renderGroup(mount, group);
         });
+        while (offIndex < offDays.length) {
+            renderOffDay(mount, offDays[offIndex]);
+            offIndex++;
+        }
     }
 
     function showStatus(msg) {
