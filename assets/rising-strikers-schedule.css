@@ -133,6 +133,33 @@
     letter-spacing: 1px;
 }
 
+/* A scheduled date with no games. The week bar above it uses .week-header.
+   "NO GAMES" stays the largest text in the notice. */
+.no-games-notice {
+    min-width: 640px;
+    box-sizing: border-box;
+    margin: 0 0 10px;
+    padding: 22px 16px;
+    text-align: center;
+    background: #f7f7f7;
+    border-bottom: 1px solid #eee;
+    color: #222;
+}
+
+.no-games-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    color: #111;
+    line-height: 1.2;
+}
+
+.no-games-note {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
 .schedule-unavailable {
     margin: 4px 0 20px;
     padding: 16px 18px;
@@ -173,7 +200,9 @@
 
     /* The 7-column table is wider than a phone. Stack each game so both
        teams and the score boxes stay on screen. Week bars stay as-is. */
-    .week-header, .schedule-table { min-width: 0; }
+    .week-header, .schedule-table, .no-games-notice { min-width: 0; }
+    .no-games-title, .no-games-note { display: block; }
+    .no-games-note { margin-top: 4px; }
     .schedule-table thead { display: none; }
     .schedule-table tr {
         display: grid;
